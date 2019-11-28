@@ -16,24 +16,31 @@ namespace ExpressionInterpreter.Logic
 
         public double OperandLeft
         {
-            get { throw new NotImplementedException(); }
+            get { return _operandLeft; }
         }
 
         public double OperandRight
         {
-            get { throw new NotImplementedException(); }
+            get { return _operandRight; }
         }
 
         public char Op
         {
-            get { throw new NotImplementedException(); }
+            get { return _op; }
         }
 
 
         public void Parse(string expressionText)
         {
-            ExpressionText = expressionText;
-            ParseExpressionStringToFields();
+            if(!String.IsNullOrEmpty(expressionText))
+            {
+                ExpressionText = expressionText;
+                ParseExpressionStringToFields();
+            }
+            else
+            {
+                throw new Exception("Ausdruck ist null oder empty!");
+            }
         }
 
         /// <summary>
@@ -42,7 +49,37 @@ namespace ExpressionInterpreter.Logic
         /// </summary>
         public double Calculate()
         {
-            throw new NotImplementedException();
+            double result;
+
+            if (Op == '+')
+            {
+                result = OperandLeft + OperandRight;
+            }
+            else if (Op == '-')
+            {
+                result = OperandLeft - OperandRight;
+            }
+            else if (Op == '*')
+            {
+                result = OperandLeft * OperandRight;
+            }
+            else if (Op == '/')
+            {
+                if(OperandRight != 0)
+                {
+                    result = OperandLeft / OperandRight;
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -57,7 +94,7 @@ namespace ExpressionInterpreter.Logic
         /// </summary>
         public void ParseExpressionStringToFields()
         {
-            throw new NotImplementedException();
+
         }
 
         /// <summary>
